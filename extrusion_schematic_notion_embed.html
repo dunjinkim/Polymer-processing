@@ -554,6 +554,96 @@
       line-height: 1.45;
     }
 
+    .anatomy-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fbfcfa;
+      padding: 10px;
+      overflow: hidden;
+    }
+
+    .screw-anatomy {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16 / 7.4;
+      min-height: 270px;
+    }
+
+    .anatomy-bg {
+      fill: #f7faf7;
+    }
+
+    .anatomy-barrel-outer {
+      fill: #dbe1dd;
+      stroke: #74817b;
+      stroke-width: 3;
+    }
+
+    .anatomy-barrel-inner {
+      fill: #fffdf8;
+      stroke: #9aa59f;
+      stroke-width: 2;
+      stroke-dasharray: 8 7;
+    }
+
+    .anatomy-resin {
+      fill: rgba(198, 95, 57, 0.18);
+    }
+
+    .anatomy-root {
+      fill: #68736e;
+      stroke: #3f4945;
+      stroke-width: 2;
+    }
+
+    .anatomy-flight {
+      fill: #287c72;
+      stroke: #15554e;
+      stroke-width: 2;
+    }
+
+    .anatomy-flight-shadow {
+      fill: #8abbb4;
+      opacity: 0.62;
+    }
+
+    .anatomy-dimension {
+      stroke: #1e2726;
+      stroke-width: 2;
+      fill: none;
+      marker-start: url(#anatomyArrow);
+      marker-end: url(#anatomyArrow);
+    }
+
+    .anatomy-guide {
+      stroke: #64706b;
+      stroke-width: 1.6;
+      stroke-dasharray: 5 5;
+      fill: none;
+    }
+
+    .anatomy-angle {
+      stroke: var(--orange);
+      stroke-width: 3;
+      fill: none;
+      marker-end: url(#anatomyArrowOrange);
+    }
+
+    .anatomy-label {
+      fill: #1e2726;
+      font-size: 15px;
+      font-weight: 900;
+      letter-spacing: 0;
+    }
+
+    .anatomy-label-small {
+      fill: #52615d;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+
     .section-bars {
       display: grid;
       gap: 10px;
@@ -717,6 +807,10 @@
       .legend-strip,
       .concept-grid {
         grid-template-columns: 1fr;
+      }
+
+      .screw-anatomy {
+        min-height: 220px;
       }
 
       .compare-row {
@@ -1215,8 +1309,118 @@
       `).join("")}</div>`;
     }
 
+    function renderScrewAnatomy() {
+      return `
+        <div class="anatomy-card">
+          <svg class="screw-anatomy" viewBox="0 0 960 444" role="img" aria-labelledby="screwAnatomyTitle screwAnatomyDesc">
+            <title id="screwAnatomyTitle">Detailed screw and barrel anatomy</title>
+            <desc id="screwAnatomyDesc">Large screw and barrel diagram labeling flight, pitch, pitch angle, flight depth, barrel diameter, root diameter, screw outside diameter, and clearance.</desc>
+            <defs>
+              <marker id="anatomyArrow" markerWidth="9" markerHeight="9" refX="4.5" refY="4.5" orient="auto-start-reverse">
+                <path d="M 0 0 L 9 4.5 L 0 9 z" fill="#1e2726"></path>
+              </marker>
+              <marker id="anatomyArrowOrange" markerWidth="9" markerHeight="9" refX="7.5" refY="4.5" orient="auto">
+                <path d="M 0 0 L 9 4.5 L 0 9 z" fill="#c65f39"></path>
+              </marker>
+              <linearGradient id="barrelWallGrad" x1="0%" x2="0%" y1="0%" y2="100%">
+                <stop offset="0%" stop-color="#eef2ef"></stop>
+                <stop offset="45%" stop-color="#cfd8d2"></stop>
+                <stop offset="100%" stop-color="#eef2ef"></stop>
+              </linearGradient>
+            </defs>
+
+            <rect class="anatomy-bg" x="0" y="0" width="960" height="444" rx="8"></rect>
+            <text class="anatomy-label" x="34" y="38">Screw + Barrel Anatomy</text>
+            <text class="anatomy-label-small" x="34" y="61">axis view: flight is the raised helical ridge; pitch is the repeat distance</text>
+
+            <rect class="anatomy-barrel-outer" x="112" y="128" width="704" height="164" rx="28" fill="url(#barrelWallGrad)"></rect>
+            <rect class="anatomy-barrel-inner" x="138" y="154" width="652" height="112" rx="18"></rect>
+            <path class="anatomy-resin" d="M 146 164 L 782 164 L 782 256 L 146 256 Z"></path>
+            <line class="anatomy-guide" x1="138" y1="154" x2="790" y2="154"></line>
+            <line class="anatomy-guide" x1="138" y1="266" x2="790" y2="266"></line>
+            <line class="anatomy-guide" x1="138" y1="166" x2="790" y2="166"></line>
+            <line class="anatomy-guide" x1="138" y1="254" x2="790" y2="254"></line>
+
+            <rect class="anatomy-root" x="154" y="194" width="596" height="32" rx="16"></rect>
+            <line x1="154" y1="210" x2="750" y2="210" stroke="#48524e" stroke-width="3" stroke-linecap="round"></line>
+
+            <g aria-label="screw flights">
+              <polygon class="anatomy-flight-shadow" points="164,166 190,166 248,254 222,254"></polygon>
+              <polygon class="anatomy-flight" points="190,166 218,166 276,254 248,254"></polygon>
+              <polygon class="anatomy-flight-shadow" points="278,166 304,166 362,254 336,254"></polygon>
+              <polygon class="anatomy-flight" points="304,166 332,166 390,254 362,254"></polygon>
+              <polygon class="anatomy-flight-shadow" points="392,166 418,166 476,254 450,254"></polygon>
+              <polygon class="anatomy-flight" points="418,166 446,166 504,254 476,254"></polygon>
+              <polygon class="anatomy-flight-shadow" points="506,166 532,166 590,254 564,254"></polygon>
+              <polygon class="anatomy-flight" points="532,166 560,166 618,254 590,254"></polygon>
+              <polygon class="anatomy-flight-shadow" points="620,166 646,166 704,254 678,254"></polygon>
+              <polygon class="anatomy-flight" points="646,166 674,166 732,254 704,254"></polygon>
+            </g>
+
+            <path class="anatomy-guide" d="M 218 166 L 218 101"></path>
+            <path class="anatomy-guide" d="M 332 166 L 332 101"></path>
+            <path class="anatomy-dimension" d="M 218 110 L 332 110"></path>
+            <text class="anatomy-label" x="249" y="96">Pitch</text>
+            <text class="anatomy-label-small" x="200" y="83">one repeat along screw axis</text>
+
+            <path class="anatomy-angle" d="M 432 166 C 452 169, 468 179, 479 195"></path>
+            <line x1="418" y1="166" x2="494" y2="166" stroke="#c65f39" stroke-width="2"></line>
+            <line x1="418" y1="166" x2="476" y2="254" stroke="#c65f39" stroke-width="2"></line>
+            <text class="anatomy-label" x="466" y="286">Pitch angle</text>
+            <text class="anatomy-label-small" x="466" y="305">helix angle, typical about 17.5 deg</text>
+
+            <path class="anatomy-dimension" d="M 88 154 L 88 266"></path>
+            <path class="anatomy-guide" d="M 88 154 L 138 154"></path>
+            <path class="anatomy-guide" d="M 88 266 L 138 266"></path>
+            <text class="anatomy-label" x="22" y="205">Barrel</text>
+            <text class="anatomy-label" x="18" y="224">diameter</text>
+
+            <path class="anatomy-dimension" d="M 842 166 L 842 254"></path>
+            <path class="anatomy-guide" d="M 732 166 L 842 166"></path>
+            <path class="anatomy-guide" d="M 732 254 L 842 254"></path>
+            <text class="anatomy-label" x="855" y="203">Screw OD</text>
+            <text class="anatomy-label-small" x="855" y="222">flight tip to tip</text>
+
+            <path class="anatomy-dimension" d="M 785 194 L 785 226"></path>
+            <path class="anatomy-guide" d="M 740 194 L 808 194"></path>
+            <path class="anatomy-guide" d="M 740 226 L 808 226"></path>
+            <text class="anatomy-label" x="762" y="318">Root diameter</text>
+            <text class="anatomy-label-small" x="762" y="337">shaft/core diameter</text>
+
+            <path class="anatomy-dimension" d="M 584 166 L 584 194"></path>
+            <path class="anatomy-guide" d="M 560 166 L 605 166"></path>
+            <path class="anatomy-guide" d="M 560 194 L 605 194"></path>
+            <text class="anatomy-label" x="592" y="121">Flight depth</text>
+            <text class="anatomy-label-small" x="592" y="140">tip to root channel depth</text>
+
+            <path class="anatomy-dimension" d="M 704 154 L 704 166"></path>
+            <path class="anatomy-guide" d="M 670 154 L 722 154"></path>
+            <path class="anatomy-guide" d="M 670 166 L 722 166"></path>
+            <text class="anatomy-label" x="722" y="94">Clearance</text>
+            <text class="anatomy-label-small" x="722" y="113">barrel wall to flight tip</text>
+
+            <path class="anatomy-guide" d="M 218 166 L 174 312"></path>
+            <text class="anatomy-label" x="116" y="333">Flight</text>
+            <text class="anatomy-label-small" x="116" y="351">raised helical ridge that pushes resin</text>
+
+            <path class="anatomy-guide" d="M 444 210 L 444 322"></path>
+            <text class="anatomy-label" x="392" y="344">Root / screw shaft</text>
+            <text class="anatomy-label-small" x="392" y="362">smaller root diameter makes deeper channel</text>
+
+            <path class="anatomy-guide" d="M 306 176 C 330 150, 354 143, 386 150"></path>
+            <text class="anatomy-label" x="306" y="397">Resin channel</text>
+            <text class="anatomy-label-small" x="306" y="416">deeper channel: more capacity; shallower channel: more shear/pressure</text>
+          </svg>
+        </div>
+      `;
+    }
+
     function renderScrewDetail() {
       return `
+        <div class="section">
+          <h3>Screw-Barrel 확대 도면</h3>
+          ${renderScrewAnatomy()}
+        </div>
         <div class="section">
           <h3>Geometry 관계</h3>
           <div class="formula">flight depth ≈ (screw outside diameter - root diameter) / 2<br>L/D = flighted screw length / barrel diameter</div>
